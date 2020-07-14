@@ -1,4 +1,5 @@
 const form = document.querySelector('#bookForm');
+const bookRow = document.querySelector('#bookRow');
 
 const book = (id, author, bookTitle, noOfPages, readStatus) => ({
   id,
@@ -74,7 +75,7 @@ function addBookToList(newBook) {
               </div>
               <div>
                 <p class=" ta_center ">
-                  <a class="btn btn-sm btn-outline-danger br_30" id="${newBook.id}">
+                  <a class="btn btn-sm btn-outline-danger br_30 removeBtn" id="${newBook.id}">
                     Remove Book
                   </a>
                 </p>
@@ -113,7 +114,26 @@ function createBook(e) {
   clearFields();
   addBook(newBook);
   addBookToList(newBook);
+  window.location.reload();
 }
 
 form.addEventListener('submit', createBook);
 document.addEventListener('DOMContentLoaded', displayBooks);
+
+function removeBook(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('removeBtn')) {
+    const books = getBooks();
+    books.forEach((book, index) => {
+      if (book.id === e.target.id) {
+        books.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem('book', JSON.stringify(books));
+
+    e.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+  }
+}
+
+bookRow.addEventListener('click', removeBook);
