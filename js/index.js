@@ -14,10 +14,21 @@ function clearFields() {
   document.querySelector('#noOfPages').value = '';
 }
 
+function getBooks() {
+  let books;
+  if (localStorage.getItem('book') === null) {
+    books = [];
+  } else {
+    books = JSON.parse(localStorage.getItem('book'));
+  }
+
+  return books;
+}
+
 function addBook(book) {
-  // const books = BookStorage.getBooks();
-  // books.push(book);
-  localStorage.setItem('book', JSON.stringify(book));
+  const books = getBooks();
+  books.push(book);
+  localStorage.setItem('book', JSON.stringify(books));
 }
 
 function addBookToList(newBook) {
