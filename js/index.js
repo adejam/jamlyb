@@ -97,6 +97,11 @@ function addBookToList(newBook) {
   bookRow.appendChild(itemDiv);
 }
 
+function displayBooks() {
+  const books = getBooks();
+  books.forEach(book => addBookToList(book));
+}
+
 function createBook(e) {
   e.preventDefault();
   const id = document.querySelector('#id').value;
@@ -111,3 +116,4 @@ function createBook(e) {
 }
 
 form.addEventListener('submit', createBook);
+document.addEventListener('DOMContentLoaded', displayBooks);
