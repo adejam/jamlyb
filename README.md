@@ -1,27 +1,41 @@
-# Project Name
+# JAMLIB
 
-> One paragraph statement about the project.
+> Jamlib is a library application for storing information on books .
 
 ![screenshot](./app_screenshot.png)
 
-Additional description about the project and its features.
+The project follows the guideline of [the odin project](https://www.theodinproject.com/courses/javascript/lessons/library?ref=lnav) to build a library application using javascript for DOM manipulation and storing data. It also uses Bootstrap for user interface design.
 
-## Built With
+It demostrates the use of javascript objects to store data.
 
-- Major languages,
-- frameworks,
-- technologies used
+## Technology Used
+
+- HTML
+
+  - Semantic HTML
+
+- CSS
+
+  - CSS Flexbox
+
+- [Bootstrap framework](https://getbootstrap.com/)
+
+- Javascript
+
+- [stylint](https://stylelint.io/)
+
+- [NPM](https://www.npmjs.com/)
 
 ## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[Jamlib link](https://adejam.github.io/jamlyb/index.html)
 
 ### Development (Running locally)
 
 - Clone the project
 
 ```bash
-git clone https://github.com/user/html-css-template.git
+git clone https://github.com/adejam/jamlyb.git
 
 ```
 
@@ -70,9 +84,11 @@ npm run html-validator
 
 ## 👤 Author
 
-- Github: [@author](https://github.com/author)
-- Twitter: [@author](https://twitter.com/author)
-- Linkedin: [@author](https://www.linkedin.com/in/author/)
+### Adeleye Jamiu
+
+- Github: [@adejam](http://github.com/adejam)
+- Twitter: [@adeleye_oj](https://twitter.com/Adeleye_oj)
+- LinkedIn: [@adeleye-jamiu](https://linkedin.com/in/adeleye-jamiu)
 
 ## 🤝 Contributing
 
@@ -86,9 +102,17 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code was used
-- Inspiration, resources/assets used
-- etc
+- [@bolah2009](http://github.com/bolah2009)
+
+- [The Odin ProJect](https://www.theodinproject.com/courses/javascript/lessons/library?ref=lnav)
+
+- [W3c](https://www.w3.org/)
+
+- [MDN](https://developer.mozilla.org/)
+
+- [w3schools](https://www.w3schools.com/)
+
+- [Bootstrap framework](https://getbootstrap.com/)
 
 ## 📝 License
 
