@@ -14,6 +14,12 @@ function clearFields() {
   document.querySelector('#noOfPages').value = '';
 }
 
+function addBook(book) {
+  // const books = BookStorage.getBooks();
+  // books.push(book);
+  localStorage.setItem('book', JSON.stringify(book));
+}
+
 function addBookToList(newBook) {
   let status = '';
   if (newBook.readStatus === true) {
@@ -89,6 +95,7 @@ function createBook(e) {
   const readStatus = document.querySelector('#readStatus').checked;
   const newBook = book(id, author, bookTitle, noOfPages, readStatus);
   clearFields();
+  addBook(newBook);
   addBookToList(newBook);
 }
 
