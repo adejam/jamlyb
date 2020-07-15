@@ -7,6 +7,10 @@
   font-size: 10px;
 }
 
+.searchDiv {
+  max-width: 300px;
+}
+
 .card {
   margin-top: 10px;
   margin-bottom: 10px;

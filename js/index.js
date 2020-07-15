@@ -1,5 +1,7 @@
 const form = document.querySelector('#bookForm');
 const bookRow = document.querySelector('#bookRow');
+const searchBig = document.querySelector('#searchBig');
+const searchSmall = document.querySelector('#searchSmall');
 
 const book = (id, author, bookTitle, noOfPages, readStatus) => ({
   id,
@@ -164,5 +166,23 @@ function removeBookOrChangeStatus(e) {
     window.location.reload();
   }
 }
+
+function searchBook(e) {
+  e.preventDefault();
+  const searchKey = e.target.value.toLowerCase();
+  const titleP = document.getElementsByClassName('titleP');
+  const titlePaArray = Array.from(titleP);
+  titlePaArray.forEach(result => {
+    const bookName = result.textContent;
+    if (bookName.toLowerCase().indexOf(searchKey) !== -1) {
+      result.parentElement.parentElement.parentElement.parentElement.style.display = 'block';
+    } else {
+      result.parentElement.parentElement.parentElement.parentElement.style.display = 'none';
+    }
+  });
+}
+
+searchBig.addEventListener('keyup', searchBook);
+searchSmall.addEventListener('keyup', searchBook);
 
 bookRow.addEventListener('click', removeBookOrChangeStatus);
