@@ -105,7 +105,21 @@ function displayBooks() {
 
 function createBook(e) {
   e.preventDefault();
-  const id = document.querySelector('#id').value;
+  let id;
+  if (localStorage.getItem('book') === null) {
+    id = 0;
+  } else {
+    let idCounter;
+    const books = getBooks();
+    let bookLength = books.length;
+    bookLength -= 1;
+    books.forEach((booke, index) => {
+      if (bookLength === index) {
+        idCounter = booke.id + 1;
+      }
+    });
+    id = idCounter;
+  }
   const author = document.querySelector('#author').value;
   const bookTitle = document.querySelector('#bookTitle').value;
   const noOfPages = document.querySelector('#noOfPages').value;
