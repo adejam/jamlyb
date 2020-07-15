@@ -37,8 +37,8 @@ function addBookToList(newBook) {
   if (newBook.readStatus === true) {
     status = `
        <div class="form-check ">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" checked />
+        <label class="form-check-label changeStatus" data-identity="${newBook.id}">
+          <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}" checked />
           You have read this book!
         </label>
        </div>
@@ -46,8 +46,8 @@ function addBookToList(newBook) {
   } else {
     status = `
        <div class="form-check ">
-         <label class="form-check-label">
-           <input type="checkbox" class="form-check-input"/>
+         <label class="form-check-label changeStatus" data-identity="${newBook.id}">
+           <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}"/>
            You should read this book!
          </label>
        </div>
@@ -57,7 +57,7 @@ function addBookToList(newBook) {
   const itemDiv = document.createElement('article');
   itemDiv.className = 'col-lg-3 col-md-4 col-sm-6';
   itemDiv.innerHTML = `
-          <div class="card bbg">
+          <div class="card bbg shadow">
             <div class="card-header cardHeader">
               <div class="titleDiv bg_White p_10 br_30">
                 <p class="text-success ta_center titleP">
@@ -134,12 +134,13 @@ function createBook(e) {
 form.addEventListener('submit', createBook);
 document.addEventListener('DOMContentLoaded', displayBooks);
 
-function removeBook(e) {
+function removeBookOrChangeStatus(e) {
   e.preventDefault();
   if (e.target.classList.contains('removeBtn')) {
     const books = getBooks();
     books.forEach((book, index) => {
-      if (book.id === e.target.id) {
+      const id = parseInt(e.target.id, 10);
+      if (book.id === id) {
         books.splice(index, 1);
       }
     });
@@ -147,7 +148,21 @@ function removeBook(e) {
     localStorage.setItem('book', JSON.stringify(books));
 
     e.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+  } else if (e.target.classList.contains('changeStatus')) {
+    const id = parseInt(e.target.dataset.identity, 10);
+    const books = getBooks();
+    books.forEach(book => {
+      if (book.id === id) {
+        if (book.readStatus === true) {
+          book.readStatus = false;
+        } else {
+          book.readStatus = true;
+        }
+      }
+    });
+    localStorage.setItem('book', JSON.stringify(books));
+    window.location.reload();
   }
 }
 
-bookRow.addEventListener('click', removeBook);
+bookRow.addEventListener('click', removeBookOrChangeStatus);
