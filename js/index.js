@@ -11,12 +11,6 @@ const book = (id, author, bookTitle, noOfPages, readStatus) => ({
   readStatus,
 });
 
-function clearFields() {
-  document.querySelector('#author').value = '';
-  document.querySelector('#bookTitle').value = '';
-  document.querySelector('#noOfPages').value = '';
-}
-
 function getBooks() {
   let books;
   if (localStorage.getItem('book') === null) {
@@ -39,8 +33,8 @@ function addBookToList(newBook) {
   if (newBook.readStatus === true) {
     status = `
        <div class="form-check ">
-        <label class="form-check-label changeStatus" data-identity="${newBook.id}">
-          <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}" checked />
+        <label class="form-check-label changeStatus" data-identity="${newBook.id}" id="statusLabel${newBook.id}">
+          <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}" id="statusInput${newBook.id}" checked />
           You have read this book!
         </label>
        </div>
@@ -48,8 +42,8 @@ function addBookToList(newBook) {
   } else {
     status = `
        <div class="form-check ">
-         <label class="form-check-label changeStatus" data-identity="${newBook.id}">
-           <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}"/>
+         <label class="form-check-label changeStatus" data-identity="${newBook.id}" id="statusLabel${newBook.id}">
+           <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}" id="statusInput${newBook.id}"/>
            You should read this book!
          </label>
        </div>
@@ -91,7 +85,7 @@ function addBookToList(newBook) {
                 </p>
               </div>
             </div>
-            <div class="card-footer text-muted">
+            <div class="card-footer text-muted" id="status${newBook.id}">
               ${status}
             </div>
           </div>
@@ -111,26 +105,18 @@ function createBook(e) {
   if (localStorage.getItem('book') === null) {
     id = 0;
   } else {
-    let idCounter;
     const books = getBooks();
-    let bookLength = books.length;
-    bookLength -= 1;
-    books.forEach((booke, index) => {
-      if (bookLength === index) {
-        idCounter = booke.id + 1;
-      }
-    });
-    id = idCounter;
+    id = books[books.length - 1].id + 1;
   }
+
   const author = document.querySelector('#author').value;
   const bookTitle = document.querySelector('#bookTitle').value;
   const noOfPages = document.querySelector('#noOfPages').value;
   const readStatus = document.querySelector('#readStatus').checked;
   const newBook = book(id, author, bookTitle, noOfPages, readStatus);
-  clearFields();
   addBook(newBook);
   addBookToList(newBook);
-  window.location.reload();
+  form.reset();
 }
 
 form.addEventListener('submit', createBook);
@@ -140,12 +126,14 @@ function removeBookOrChangeStatus(e) {
   e.preventDefault();
   if (e.target.classList.contains('removeBtn')) {
     const books = getBooks();
-    books.forEach((book, index) => {
-      const id = parseInt(e.target.id, 10);
-      if (book.id === id) {
+    let index = -1;
+    const id = parseInt(e.target.id, 10);
+    for (let i = 0; i < books.length; i += 1) {
+      index += 1;
+      if (books[i].id === id) {
         books.splice(index, 1);
       }
-    });
+    }
 
     localStorage.setItem('book', JSON.stringify(books));
 
@@ -153,17 +141,26 @@ function removeBookOrChangeStatus(e) {
   } else if (e.target.classList.contains('changeStatus')) {
     const id = parseInt(e.target.dataset.identity, 10);
     const books = getBooks();
-    books.forEach(book => {
-      if (book.id === id) {
-        if (book.readStatus === true) {
-          book.readStatus = false;
+    for (let i = 0; i < books.length; i += 1) {
+      if (books[i].id === id) {
+        if (books[i].readStatus === true) {
+          books[i].readStatus = false;
+          const statusLabel = document.querySelector(`#statusLabel${id}`);
+          const statusInput = document.querySelector(`#statusInput${id}`);
+          statusInput.removeAttribute('checked');
+          const text = document.createTextNode('You should read this book!');
+          statusLabel.replaceChild(text, statusLabel.childNodes[2]);
         } else {
-          book.readStatus = true;
+          books[i].readStatus = true;
+          const statusLabel = document.querySelector(`#statusLabel${id}`);
+          const statusInput = document.querySelector(`#statusInput${id}`);
+          statusInput.setAttribute('checked', 'true');
+          const text = document.createTextNode('You have read this book!');
+          statusLabel.replaceChild(text, statusLabel.childNodes[2]);
         }
       }
-    });
+    }
     localStorage.setItem('book', JSON.stringify(books));
-    window.location.reload();
   }
 }
 
