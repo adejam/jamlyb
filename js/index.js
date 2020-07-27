@@ -27,27 +27,22 @@ function addBook(book) {
   books.push(book);
   localStorage.setItem('book', JSON.stringify(books));
 }
-
+function statusNode(id, message, check) {
+  return `<div class="form-check ">
+        <label class="form-check-label changeStatus" data-identity="${id}" id="statusLabel${id}">
+          <input type="checkbox" class="form-check-input changeStatus" data-identity="${id}" id="statusInput${id}" ${check} />
+          ${message}
+        </label>
+       </div>`;
+}
 function addBookToList(newBook) {
   let status = '';
   if (newBook.readStatus === true) {
-    status = `
-       <div class="form-check ">
-        <label class="form-check-label changeStatus" data-identity="${newBook.id}" id="statusLabel${newBook.id}">
-          <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}" id="statusInput${newBook.id}" checked />
-          You have read this book!
-        </label>
-       </div>
-      `;
+    const message = 'You have read this book!';
+    status = statusNode(newBook.id, message, 'checked');
   } else {
-    status = `
-       <div class="form-check ">
-         <label class="form-check-label changeStatus" data-identity="${newBook.id}" id="statusLabel${newBook.id}">
-           <input type="checkbox" class="form-check-input changeStatus" data-identity="${newBook.id}" id="statusInput${newBook.id}"/>
-           You should read this book!
-         </label>
-       </div>
-      `;
+    const message = 'You should read this book!';
+    status = statusNode(newBook.id, message, '');
   }
   const bookRow = document.querySelector('#bookRow');
   const itemDiv = document.createElement('article');
@@ -122,15 +117,15 @@ function createBook(e) {
 form.addEventListener('submit', createBook);
 document.addEventListener('DOMContentLoaded', displayBooks);
 function changeStatus(trueStatement, id, message) {
-          const statusLabel = document.querySelector(`#statusLabel${id}`);
-          const statusInput = document.querySelector(`#statusInput${id}`);
-          if(trueStatement === true){
-            statusInput.setAttribute('checked', 'true');
-          }else{
-            statusInput.removeAttribute('checked');
-          }
-          const text = document.createTextNode(message);
-          statusLabel.replaceChild(text, statusLabel.childNodes[2]);
+  const statusLabel = document.querySelector(`#statusLabel${id}`);
+  const statusInput = document.querySelector(`#statusInput${id}`);
+  if (trueStatement === true) {
+    statusInput.setAttribute('checked', 'true');
+  } else {
+    statusInput.removeAttribute('checked');
+  }
+  const text = document.createTextNode(message);
+  statusLabel.replaceChild(text, statusLabel.childNodes[2]);
 }
 function removeBookOrChangeStatus(e) {
   e.preventDefault();
@@ -157,7 +152,7 @@ function removeBookOrChangeStatus(e) {
         if (books[i].readStatus === true) {
           books[i].readStatus = false;
           const message = 'You should read this book!';
-          changeStatus(false, id, message)
+          changeStatus(false, id, message);
         } else {
           books[i].readStatus = true;
           const message = 'You have read this book!';
