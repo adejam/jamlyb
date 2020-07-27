@@ -1,8 +1,3 @@
-const form = document.querySelector('#bookForm');
-const bookRow = document.querySelector('#bookRow');
-const searchBig = document.querySelector('#searchBig');
-const searchSmall = document.querySelector('#searchSmall');
-
 const book = (id, author, bookTitle, noOfPages, readStatus) => ({
   id,
   author,
@@ -10,6 +5,11 @@ const book = (id, author, bookTitle, noOfPages, readStatus) => ({
   noOfPages,
   readStatus,
 });
+
+const form = document.querySelector('#bookForm');
+const bookRow = document.querySelector('#bookRow');
+const searchBig = document.querySelector('#searchBig');
+const searchSmall = document.querySelector('#searchSmall');
 
 function getBooks() {
   let books;
@@ -121,7 +121,17 @@ function createBook(e) {
 
 form.addEventListener('submit', createBook);
 document.addEventListener('DOMContentLoaded', displayBooks);
-
+function changeStatus(trueStatement, id, message) {
+          const statusLabel = document.querySelector(`#statusLabel${id}`);
+          const statusInput = document.querySelector(`#statusInput${id}`);
+          if(trueStatement === true){
+            statusInput.setAttribute('checked', 'true');
+          }else{
+            statusInput.removeAttribute('checked');
+          }
+          const text = document.createTextNode(message);
+          statusLabel.replaceChild(text, statusLabel.childNodes[2]);
+}
 function removeBookOrChangeStatus(e) {
   e.preventDefault();
   if (e.target.classList.contains('removeBtn')) {
@@ -132,6 +142,7 @@ function removeBookOrChangeStatus(e) {
       index += 1;
       if (books[i].id === id) {
         books.splice(index, 1);
+        break;
       }
     }
 
@@ -145,19 +156,14 @@ function removeBookOrChangeStatus(e) {
       if (books[i].id === id) {
         if (books[i].readStatus === true) {
           books[i].readStatus = false;
-          const statusLabel = document.querySelector(`#statusLabel${id}`);
-          const statusInput = document.querySelector(`#statusInput${id}`);
-          statusInput.removeAttribute('checked');
-          const text = document.createTextNode('You should read this book!');
-          statusLabel.replaceChild(text, statusLabel.childNodes[2]);
+          const message = 'You should read this book!';
+          changeStatus(false, id, message)
         } else {
           books[i].readStatus = true;
-          const statusLabel = document.querySelector(`#statusLabel${id}`);
-          const statusInput = document.querySelector(`#statusInput${id}`);
-          statusInput.setAttribute('checked', 'true');
-          const text = document.createTextNode('You have read this book!');
-          statusLabel.replaceChild(text, statusLabel.childNodes[2]);
+          const message = 'You have read this book!';
+          changeStatus(true, id, message);
         }
+        break;
       }
     }
     localStorage.setItem('book', JSON.stringify(books));

@@ -1,6 +1,6 @@
-# JAMLIB
+# JAMLYB
 
-> Jamlib is a library application for storing information on books .
+> Jamlyb is a library application for storing information on books .
 
 ![screenshot](./app_screenshot.png)
 
@@ -28,7 +28,7 @@ It demostrates the use of javascript objects to store data.
 
 ## Live Demo
 
-[Jamlib link](https://adejam.github.io/jamlyb/index.html)
+[Jamlyb link](https://adejam.github.io/jamlyb/index.html)
 
 ### Development (Running locally)
 
@@ -42,7 +42,7 @@ git clone https://github.com/adejam/jamlyb.git
 - Install Dependencies
 
 ```bash
-npm run install
+npm install
 ```
 
 To run StyleLint by itself, you may run the lint task:
