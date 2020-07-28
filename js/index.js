@@ -1,10 +1,10 @@
-const book = (id, author, bookTitle, noOfPages, readStatus) => ({
-  id,
-  author,
-  bookTitle,
-  noOfPages,
-  readStatus,
-});
+// const book = (id, author, bookTitle, noOfPages, readStatus) => ({
+//   id,
+//   author,
+//   bookTitle,
+//   noOfPages,
+//   readStatus,
+// });
 
 const form = document.querySelector('#bookForm');
 const bookRow = document.querySelector('#bookRow');
@@ -94,8 +94,7 @@ function displayBooks() {
   books.forEach(book => addBookToList(book));
 }
 
-function createBook(e) {
-  e.preventDefault();
+function dynamicId() {
   let id;
   if (localStorage.getItem('book') === null) {
     id = 0;
@@ -104,14 +103,37 @@ function createBook(e) {
     id = books[books.length - 1].id + 1;
   }
 
-  const author = document.querySelector('#author').value;
-  const bookTitle = document.querySelector('#bookTitle').value;
-  const noOfPages = document.querySelector('#noOfPages').value;
-  const readStatus = document.querySelector('#readStatus').checked;
-  const newBook = book(id, author, bookTitle, noOfPages, readStatus);
-  addBook(newBook);
-  addBookToList(newBook);
+  return id;
+}
+function dynamicValues(id, values) {
+  const newBook = {};
+  values.forEach(result => {
+    if (result.dataset.uid === 'uid') {
+      newBook[result.id] = id;
+    } else if (result.dataset.checker === 'checker') {
+      newBook[result.id] = result.checked;
+    } else {
+      newBook[result.id] = result.value;
+    }
+  });
+
+  return newBook;
+}
+
+function createBook(e) {
+  e.preventDefault();
+  const values = document.querySelectorAll('.values');
+  const book = dynamicValues(dynamicId(), values);
+  addBook(book);
+  addBookToList(book);
   form.reset();
+  const bookModal = document.querySelector('#addBookModal');
+  bookModal.style.display = 'none';
+  const body = document.querySelector('body');
+  body.classList.remove('modal-open');
+  body.style.paddingRight = '0px';
+  const mb = document.querySelector('.modal-backdrop');
+  mb.remove();
 }
 
 form.addEventListener('submit', createBook);

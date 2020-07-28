@@ -65,11 +65,12 @@
                   </div>
                   <form id="bookForm">
                     <div class="modal-body">
+                      <input type="hidden" class="values" id="id" data-uid="uid" />
                       <div class="form-group">
                         <label for="bookTitle">Book Title</label>
                         <input
                           type="text"
-                          class="form-control"
+                          class="form-control values"
                           id="bookTitle"
                           placeholder="Enter Book Title"
                           required
@@ -79,7 +80,7 @@
                         <label for="author">Author</label>
                         <input
                           type="text"
-                          class="form-control"
+                          class="form-control values"
                           id="author"
                           placeholder="Enter Book Author"
                           required
@@ -89,7 +90,7 @@
                         <label for="noOfPages">Number Of Pages</label>
                         <input
                           type="number"
-                          class="form-control"
+                          class="form-control values"
                           id="noOfPages"
                           placeholder="Enter Number Of Pages"
                           required
@@ -97,7 +98,12 @@
                       </div>
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" id="readStatus" />
+                          <input
+                            type="checkbox"
+                            class="form-check-input values"
+                            id="readStatus"
+                            data-checker="checker"
+                          />
                           Check Read Status
                         </label>
                       </div>
