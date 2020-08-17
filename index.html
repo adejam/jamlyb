@@ -13,7 +13,147 @@
     <link type="text/css" rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-    <h2 class="ta_center">Jamlyb</h2>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <a class="navbar-brand text-info" href="#">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            style="width:30px; height:30px;"
+          >
+            <path
+              d="M352 96c0-53.02-42.98-96-96-96s-96 42.98-96 96 42.98 96 96 96 96-42.98 96-96zM233.59 241.1c-59.33-36.32-155.43-46.3-203.79-49.05C13.55 191.13 0 203.51 0 219.14v222.8c0 14.33 11.59 26.28 26.49 27.05 43.66 2.29 131.99 10.68 193.04 41.43 9.37 4.72 20.48-1.71 20.48-11.87V252.56c-.01-4.67-2.32-8.95-6.42-11.46zm248.61-49.05c-48.35 2.74-144.46 12.73-203.78 49.05-4.1 2.51-6.41 6.96-6.41 11.63v245.79c0 10.19 11.14 16.63 20.54 11.9 61.04-30.72 149.32-39.11 192.97-41.4 14.9-.78 26.49-12.73 26.49-27.06V219.14c-.01-15.63-13.56-28.01-29.81-27.09z"
+              style="fill:blue;"
+            />
+          </svg>
+          <span>JAMLYB</span>
+        </a>
+        <div class="d-none d-sm-block searchDiv">
+          <input
+            class="form-control"
+            type="search"
+            id="searchBig"
+            placeholder="Search Book Name"
+            aria-label="Search"
+          />
+        </div>
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <button
+              class="btn btn-outline-secondary ta_center"
+              type="button"
+              data-toggle="modal"
+              data-target="#addBookModal"
+            >
+              Add Book
+            </button>
+            <div
+              class="modal fade"
+              id="addBookModal"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form id="bookForm">
+                    <div class="modal-body">
+                      <input type="hidden" class="values" id="id" data-uid="uid" />
+                      <div class="form-group">
+                        <label for="bookTitle">Book Title</label>
+                        <input
+                          type="text"
+                          class="form-control values"
+                          id="bookTitle"
+                          placeholder="Enter Book Title"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="author">Author</label>
+                        <input
+                          type="text"
+                          class="form-control values"
+                          id="author"
+                          placeholder="Enter Book Author"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="noOfPages">Number Of Pages</label>
+                        <input
+                          type="number"
+                          class="form-control values"
+                          id="noOfPages"
+                          placeholder="Enter Number Of Pages"
+                          required
+                        />
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input
+                            type="checkbox"
+                            class="form-check-input values"
+                            id="readStatus"
+                            data-checker="checker"
+                          />
+                          Check Read Status
+                        </label>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" id="addBtn">Add Book</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <section class="headerSection ta_center bg-warning">
+        <h2>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            style="width:30px; height:30px;"
+          >
+            <path
+              d="M352 96c0-53.02-42.98-96-96-96s-96 42.98-96 96 42.98 96 96 96 96-42.98 96-96zM233.59 241.1c-59.33-36.32-155.43-46.3-203.79-49.05C13.55 191.13 0 203.51 0 219.14v222.8c0 14.33 11.59 26.28 26.49 27.05 43.66 2.29 131.99 10.68 193.04 41.43 9.37 4.72 20.48-1.71 20.48-11.87V252.56c-.01-4.67-2.32-8.95-6.42-11.46zm248.61-49.05c-48.35 2.74-144.46 12.73-203.78 49.05-4.1 2.51-6.41 6.96-6.41 11.63v245.79c0 10.19 11.14 16.63 20.54 11.9 61.04-30.72 149.32-39.11 192.97-41.4 14.9-.78 26.49-12.73 26.49-27.06V219.14c-.01-15.63-13.56-28.01-29.81-27.09z"
+              style="fill:blue;"
+            />
+          </svg>
+          <span class="text-info">JAMLYB</span>
+        </h2>
+        <p class="text-muted smallText">
+          © 2020. Designed By Adeleye Jamiu.
+        </p>
+        <p class="headerText text-secondary">Your Number One Online Book Library.</p>
+        <div class="d_flex justify-content-center d-sm-none">
+          <div class="searchDiv">
+            <input
+              class="form-control"
+              type="search"
+              id="searchSmall"
+              placeholder="Search Book Name"
+              aria-label="Search"
+            />
+          </div>
+        </div>
+      </section>
+    </header>
+    <main class="container-fluid main">
+      <section class="row" id="bookRow">
+        <h2 class="d-none">books</h2>
+      </section>
+    </main>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
